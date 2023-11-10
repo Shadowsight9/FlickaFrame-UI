@@ -1,22 +1,42 @@
 <script setup lang="ts">
+import { Swiper } from 'swiper/vue'
+import type { Swiper as TSwiper } from 'swiper'
+import { ALL_CATEGORY } from '~/models'
 
-const { feedList, isEnd, addMore, pending } = useFeedData(ref('0'))
+const { feedList, isEnd, addMore, pending } = useFeedData(ref(ALL_CATEGORY))
+
+const swiperInstance = ref<TSwiper>()
+
+onKeyStroke(['w', 'ArrowUp'], () => {
+  swiperInstance.value?.slidePrev()
+})
+
+onKeyStroke(['s', 'ArrowDown'], () => {
+  swiperInstance.value?.slideNext()
+})
+
+function onSwiper(swiper: TSwiper) {
+  swiperInstance.value = swiper
+}
+
 </script>
 
 <template>
-
   <Swiper
     class="h-full"
-    :modules="[SwiperAutoplay, SwiperVirtual]"
+    :modules="[SwiperVirtual]"
     :slides-per-view="1"
-    :loop="true"
-    effect="creative"
     direction="vertical"
     virtual
+    @swiper="onSwiper"
   >
-    <!--  :virtual="true" -->
-    <SwiperSlide v-for="feed in feedList" :key="feed.id">
-      <UiPlayer :url="feed.playUrl" class="h-full w-full" />
+    <SwiperSlide v-for="item in feedList" :key="item.id">
+
+      <FeedContent
+        :card="false"
+        :info="item"
+      />
+
     </SwiperSlide>
   </Swiper>
 

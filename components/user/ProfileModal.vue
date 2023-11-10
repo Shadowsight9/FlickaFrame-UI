@@ -14,12 +14,12 @@ const open = defineModel({ default: true })
 const store = useSessionStore()
 
 const initialValues = {
-  slogan: store.info.slogan,
-  nickName: store.info.nickName,
-  age: store.info.age,
-  gender: store.info.gender,
-  avatarUrl: store.info.avatarUrl || '',
-  backgroundUrl: store.info.backgroundUrl || '',
+  slogan: store.user.slogan,
+  nickName: store.user.nickName,
+  age: store.user.age,
+  gender: store.user.gender,
+  avatarUrl: store.user.avatarUrl || '',
+  backgroundUrl: store.user.backgroundUrl || '',
 }
 
 const form = useForm({

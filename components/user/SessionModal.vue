@@ -55,12 +55,9 @@ const handleSubmit = form.handleSubmit(async (values) => {
     const res = await register(values)
 
     if (res.success) {
-      toast.publish({ desc: '注册成功' })
+      notification.success({ message: '注册成功' })
     } else {
-      toast.publish({
-        title: '注册失败～',
-        desc: res.msg,
-      })
+      notification.error({ message: '注册失败～', description: res.msg })
     }
     changeState()
   } else {
@@ -68,13 +65,16 @@ const handleSubmit = form.handleSubmit(async (values) => {
     if (loginSucess) {
       const { success: infoSucess, data } = await getUserInfo()
       if (infoSucess) {
-        toast.publish({ title: '登录成功', desc: `欢迎回来${data.nickName}` })
+        notification.success({
+          message: '登录成功',
+          description: `欢迎回来${data.nickName}`,
+        })
         open.value = false
       }
     } else {
-      toast.publish({
-        type: 'warning',
-        desc: `登录失败～ ${msg}`,
+      notification.error({
+        message: '登录失败',
+        description: msg,
       })
     }
   }
@@ -110,9 +110,6 @@ function changeState() {
             <UiFormControl>
               <UiInput type="text" v-bind="componentField" />
             </UiFormControl>
-            <!-- <UiFormDescription>
-              This is your public display name.
-            </UiFormDescription> -->
             <UiFormMessage />
           </UiFormItem>
         </FormField>

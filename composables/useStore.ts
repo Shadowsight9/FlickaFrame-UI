@@ -5,18 +5,26 @@ import type { SessionResponse, User } from '~/models'
 export const useSessionStore = defineStore('session', () => {
   const session = ref<Partial<SessionResponse>>({ })
 
-  const info = ref<Partial<User>>({ })
+  const user = ref<Partial<User>>({ })
 
   const clearSession = () => {
     session.value = {}
-    info.value = {}
+    user.value = {}
   }
+
+  const isSessionModalOpen = ref(false)
 
   const isLogin = computed(() => {
     return !!session.value.accessExpire && dayjs().unix() < session.value.accessExpire
   })
 
-  return { clearSession, isLogin, session, info }
+  return {
+    clearSession,
+    isLogin,
+    session,
+    user,
+    isSessionModalOpen,
+  }
 }, {
   persist: true,
 })

@@ -53,7 +53,7 @@ async function handleShare() {
       </NuxtLink>
       <div class="flex-1" />
       <UserFollowButton
-        v-if="info.author.userId !== store.info.userId"
+        v-if="info.author.userId !== store.user.userId"
         :is-follow="info.author.isFollow"
         :user-id="info.author.userId"
         @changed="emit('refresh')"

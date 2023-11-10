@@ -18,8 +18,9 @@ if (route.params.id) {
 <template>
   <div>
     <FeedMain v-if="!route.params.id" />
-    <div v-else class="mt-10 w-full flex-center">
+    <div v-else class="mt-10 w-full flex-center overflow-x-hidden">
       <FeedContent
+        class="h-200 overflow-x-hidden"
         :info="cardInfo"
         :active="true"
       />

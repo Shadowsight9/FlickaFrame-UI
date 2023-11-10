@@ -8,8 +8,6 @@ function handleLogout() {
   message.info('退出登录成功')
 }
 
-const sessionDialogOpen = ref(false)
-
 const text = ref('')
 
 function handleSearch() {
@@ -34,28 +32,34 @@ function handleSearch() {
       @keyup.enter="handleSearch"
     />
 
-    <UiDropdownMenu v-if="store.info.userId">
+    <UiDropdownMenu v-if="store.user.userId">
       <UiDropdownMenuTrigger>
         <UiButton variant="secondary" class="mr-4 flex-center gap-2 whitespace-nowrap py-7 text-base">
           <UiAvatar size="base">
-            <UiAvatarImage :src="store.info.avatarUrl" :alt="store.info.nickName" />
-            <UiAvatarFallback>{{ store.info.nickName }}</UiAvatarFallback>
+            <UiAvatarImage :src="store.user.avatarUrl" :alt="store.user.nickName" />
+            <UiAvatarFallback>{{ store.user.nickName }}</UiAvatarFallback>
           </UiAvatar>
-          {{ store.info.nickName }}
+          {{ store.user.nickName }}
         </UiButton>
       </UiDropdownMenuTrigger>
       <UiDropdownMenuContent>
-        <UiDropdownMenuLabel> {{ store.info.nickName }}</UiDropdownMenuLabel>
+        <UiDropdownMenuLabel> {{ store.user.nickName }}</UiDropdownMenuLabel>
         <UiDropdownMenuSeparator />
-        <UiDropdownMenuItem @click="navigateTo(`/profile/${store.info.userId}`)">我的频道</UiDropdownMenuItem>
+        <UiDropdownMenuItem @click="navigateTo(`/profile/${store.user.userId}`)">我的频道</UiDropdownMenuItem>
         <UiDropdownMenuItem @click="handleLogout">退出登录</UiDropdownMenuItem>
       </UiDropdownMenuContent>
     </UiDropdownMenu>
 
-    <UiButton v-else variant="secondary" class="mr-4 whitespace-nowrap border py-4 text-sm" @click="sessionDialogOpen = true">
+    <UiButton
+      v-else
+      variant="secondary"
+      class="mr-4 whitespace-nowrap border py-4 text-sm"
+      @click="store.isSessionModalOpen = true"
+    >
       点击登录
-      <UserSessionModal v-model="sessionDialogOpen" />
+
     </UiButton>
+    <UserSessionModal v-model="store.isSessionModalOpen" />
 
   </nav>
 </template>

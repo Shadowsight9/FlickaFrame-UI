@@ -74,6 +74,8 @@ export interface VideoUploadInfo {
   videoWidth?: number
 }
 
+export const ALL_CATEGORY = '0'
+
 export interface VideoCategory {
   id: string
   name: string

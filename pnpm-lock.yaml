@@ -66,8 +66,8 @@ dependencies:
     specifier: ^1.2.2
     version: 1.2.2
   oplayer-ui-plus:
-    specifier: ^1.2.34
-    version: 1.2.34(@oplayer/core@1.2.31)
+    specifier: ^1.2.35
+    version: 1.2.35(@oplayer/core@1.2.31)
   radix-vue:
     specifier: ^1.0.1
     version: 1.0.1(vue@3.3.6)
@@ -7016,8 +7016,8 @@ packages:
       undici: 5.26.5
       yargs-parser: 21.1.1
 
-  /oplayer-ui-plus@1.2.34(@oplayer/core@1.2.31):
-    resolution: {integrity: sha512-ByoU8391MFxwa9OJJdgB/cQjpmyMdy4OPRCMQrBips9v7sc/VK7PTS7syFQDzV+VQljp48jqS2SVJqylllFxxw==}
+  /oplayer-ui-plus@1.2.35(@oplayer/core@1.2.31):
+    resolution: {integrity: sha512-WytGFv8FP3G9YgONaIwS4ZxJddEuTiOoQcTSCCS2acFt3qhrtJkdDb8gfTBItEtYAQBLDKWXh1J0mjoXI90qKw==}
     peerDependencies:
       '@oplayer/core': '>=1.0.0'
     dependencies:

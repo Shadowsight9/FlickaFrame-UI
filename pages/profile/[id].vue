@@ -5,12 +5,12 @@ import { getUserInfo, getUserInfoById } from '~/apis'
 const route = useRoute()
 
 const store = useSessionStore()
-const userId = computed<string>(() => (route.params.id as string) || store.info.userId || '')
+const userId = computed<string>(() => (route.params.id as string) || store.user.userId || '')
 
 const { data, refresh } = useAsyncData(userId.value, async () => {
   let requestFn = () => getUserInfoById(userId.value)
 
-  if (store.info.userId === userId.value) {
+  if (store.user.userId === userId.value) {
     requestFn = getUserInfo
   }
 
@@ -21,7 +21,7 @@ const { data, refresh } = useAsyncData(userId.value, async () => {
   return data
 })
 
-const isOwn = computed(() => store.info.userId === data.value?.userId)
+const isOwn = computed(() => store.user.userId === data.value?.userId)
 
 const selectedTab = ref<FollowTab>(FollowTab.Following)
 
@@ -69,7 +69,7 @@ function handleOpenFollower() {
               <div v-else-if="data.gender === UserGender.Female" class="i-mdi-gender-female color-red" />
             </div>
             <UserFollowButton
-              v-if="store.info.userId !== data.userId"
+              v-if="store.user.userId !== data.userId"
               :is-follow="data.isFollow"
               :user-id="data.userId"
             />

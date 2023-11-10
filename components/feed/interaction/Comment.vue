@@ -4,8 +4,7 @@ import { CommentLevel } from '~/models'
 
 const props = defineProps<{
   authorId: string
-  type?: 'top' | 'sub'
-  comments: Comment[]
+  comments: Comment[] | null
 }>()
 
 const emit = defineEmits<{

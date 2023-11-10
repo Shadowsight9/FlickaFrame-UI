@@ -28,15 +28,15 @@ async function onVideoSelect() {
 
   const [file] = selectFileElement.value?.files || []
   if (!file) {
-    toast.publish({ type: 'warning', desc: '请选择视频' })
+    notification.warn({ message: '请选择视频' })
   } else {
     isUploading.value = true
     const result = await upload(file)
     isUploading.value = false
     if (!result) {
-      toast.publish({ type: 'warning', desc: '上传失败' })
+      notification.warn({ message: '上传失败' })
     } else {
-      toast.publish({ desc: '上传成功' })
+      notification.success({ message: '上传成功' })
       uploadResult.value = result
       setVideoMetadata(result)
       playUrl.value = result.key

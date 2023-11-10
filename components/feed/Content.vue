@@ -4,9 +4,15 @@ import { getVideoInfo } from '~/apis'
 const props = withDefaults(defineProps<{
   info: VideoItem
   active?: boolean
+  card?: boolean
 }>(), {
   active: true,
+  card: true,
 })
+
+const emit = defineEmits<{
+  (e: 'active'): void
+}>()
 const info = ref(props.info)
 
 const expland = ref(true)
@@ -25,14 +31,21 @@ async function refreshVideoInfo() {
 
 <template>
   <div
-    class="flex overflow-hidden border rounded-lg shadow-lg"
-    :class="props.active ? '' : 'filter-blur-1 brightness-80 hover:cursor-pointer'"
+    class="relative max-w-screen flex overflow-hidden"
+    :class="props.card ? 'border rounded-lg shadow-lg' : 'h-full w-full'"
   >
+    <div
+      v-if="!props.active"
+      class="absolute inset-0 z-10 cursor-pointer bg-black opacity-30"
+      @click.stop="emit('active')"
+    />
     <UiPlayer
       v-model:expland="expland"
       :active="active"
       :url="info.playUrl"
-      class="h-full min-w-200"
+      :video-item="props.info"
+      class="h-full"
+      :class="props.card ? 'aspect-9/16' : 'flex-1'"
     />
     <FeedInteraction
       v-show="expland"

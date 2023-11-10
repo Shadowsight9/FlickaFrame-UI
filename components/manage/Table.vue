@@ -2,7 +2,7 @@
 
 const store = useSessionStore()
 
-const authorID = store.info.userId
+const authorID = store.user.userId
 const { feedList, isEnd, addMore, pending } = useFeedData(ref('0'), {
   authorID,
 })

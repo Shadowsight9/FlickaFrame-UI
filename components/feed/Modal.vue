@@ -71,11 +71,13 @@ function useCardScroll(cardIndex: Ref<number>, cardList: Ref<VideoItem[]>) {
     })
   }
 
-  onKeyStroke('ArrowDown', (e) => {
+  onKeyStroke(['s', 'ArrowDown'], (e) => {
+    e.preventDefault()
     navgate(1)
   })
 
-  onKeyStroke('ArrowUp', (e) => {
+  onKeyStroke(['w', 'ArrowUp'], (e) => {
+    e.preventDefault()
     navgate(-1)
   })
 
@@ -84,22 +86,24 @@ function useCardScroll(cardIndex: Ref<number>, cardList: Ref<VideoItem[]>) {
 
 const { activeCardList, activeCardOrder, pending, cardNeighbours, navgate } = useCardScroll(cardIndex, cardList)
 
-watch(() => cardNeighbours.value.current, (newVal) => {
-  if (!newVal) return
-  history.replaceState(null, '', `/explore/${newVal.id}`)
-}, { immediate: true })
+function useDymanicPath() {
+  watch(() => cardNeighbours.value.current, (newVal) => {
+    if (!newVal) return
+    history.replaceState(null, '', `/explore/${newVal.id}`)
+  }, { immediate: true })
 
-watch(show, (newVal) => {
-  if (!newVal) {
-    history.replaceState(null, '', '/explore')
-  }
-})
+  watch(show, (newVal) => {
+    if (!newVal) {
+      history.replaceState(null, '', '/explore')
+    }
+  })
+}
+
+useDymanicPath()
 
 function handleClickCard(cardItem: VideoItem) {
   if (cardItem === cardNeighbours.value.current) return
-
   if (cardItem === cardNeighbours.value.prev) navgate(-1)
-
   if (cardItem === cardNeighbours.value.next) navgate(1)
 }
 
@@ -110,15 +114,17 @@ function handleClickCard(cardItem: VideoItem) {
 
     <div
       v-if="show"
-      class="fixed left-0 top-0 z-40 h-screen w-screen flex items-start justify-center bg-black bg-opacity-10"
+      class="fixed left-0 top-0 z-40 h-screen w-screen flex items-start justify-center bg-black bg-opacity-15"
     >
-      <div class="fixed left-10 top-10 h-10 w-10 flex items-center justify-center border-2 rounded-full bg-white shadow transition-all hover:border-slate-300 hover:shadow-lg">
+      <div
+        class="fixed left-10 top-10 h-10 w-10 flex items-center justify-center border-2 rounded-full bg-white shadow transition-all hover:border-slate-300 hover:shadow-lg"
+      >
         <div class="i-mdi-close-thick text-6 text-slate-600" @click="show = !show" />
       </div>
 
       <div
         ref="modalElement"
-        class="feed-wrapper flex-col-center overflow-y-hidden"
+        class="feed-wrapper flex-col-center overflow-y-hidden overscroll-contain"
         :class="{ 'transition-transform': !pending }"
       >
         <template v-for="cardItem in activeCardList" :key="cardItem">
@@ -126,7 +132,7 @@ function handleClickCard(cardItem: VideoItem) {
             class="feed-content"
             :info="cardItem"
             :active="cardNeighbours.current === cardItem"
-            @click="handleClickCard(cardItem)"
+            @active="handleClickCard(cardItem)"
           />
         </template>
       </div>
@@ -136,7 +142,6 @@ function handleClickCard(cardItem: VideoItem) {
 </template>
 
 <style scoped>
-
 .feed-wrapper {
   --container-height: 100vh;
   --container-gap: 0vh;

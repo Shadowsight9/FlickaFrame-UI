@@ -20,6 +20,9 @@ export default defineNuxtConfig({
       script: { defineModel: true },
     },
   },
+  devServer: {
+    host: '0.0.0.0',
+  },
   nitro: {
     devProxy: {
       '/api': {

@@ -3,8 +3,8 @@ import { useLikeChange } from '~/composables/useStore'
 import { favoriteComment, favoriteVideo, unfavoriteComment, unfavoriteVideo } from '~/apis'
 
 const props = defineProps<{
-  liked: boolean
-  likedCount: number
+  liked?: boolean
+  likedCount?: number
   id: string
   type: 'video' | 'comment'
 
