@@ -2,7 +2,7 @@
 import { useAttrs } from 'vue'
 import { Label } from 'radix-vue'
 import { useFormField } from './useFormField'
-import { cn } from '~/lib/utils'
+import { cn } from '~/utils/css'
 
 defineOptions({
   inheritAttrs: false,

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { SelectSeparator, type SelectSeparatorProps } from 'radix-vue'
-import { cn } from '~/lib/utils'
+import { cn } from '~/utils/css'
 
 const props = defineProps<SelectSeparatorProps & { class?: string }>()
 </script>

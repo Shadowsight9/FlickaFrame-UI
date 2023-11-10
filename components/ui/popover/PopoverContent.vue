@@ -6,7 +6,7 @@ import {
   PopoverPortal,
   useForwardPropsEmits,
 } from 'radix-vue'
-import { cn } from '~/lib/utils'
+import { cn } from '~/utils/css'
 
 const props = withDefaults(
   defineProps<PopoverContentProps & { class?: string }>(),

@@ -5,11 +5,9 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@vueuse/nuxt',
     '@unocss/nuxt',
-    '@nuxt/image',
     '@nuxtjs/eslint-module',
     '@formkit/auto-animate',
     '@vueuse/motion/nuxt',
-    'dayjs-nuxt',
     '@pinia-plugin-persistedstate/nuxt',
     '@ant-design-vue/nuxt',
     'nuxt-swiper',
@@ -27,9 +25,6 @@ export default defineNuxtConfig({
     devProxy: {
       '/api': {
         target: process.env.NUXT_PUBLIC_API_BASE,
-        changeOrigin: true,
-        prependPath: true,
-        ws: true,
       },
     },
   },

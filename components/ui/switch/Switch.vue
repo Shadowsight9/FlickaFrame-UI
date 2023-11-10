@@ -6,7 +6,7 @@ import {
   SwitchThumb,
   useForwardPropsEmits,
 } from 'radix-vue'
-import { cn } from '~/lib/utils'
+import { cn } from '~/utils/css'
 
 const props = defineProps<SwitchRootProps & { class?: string }>()
 const emits = defineEmits<SwitchRootEmits>()

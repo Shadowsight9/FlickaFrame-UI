@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { ComboboxEmptyProps } from 'radix-vue'
 import { ComboboxEmpty } from 'radix-vue'
-import { cn } from '~/lib/utils'
+import { cn } from '~/utils/css'
 
 const props = defineProps<ComboboxEmptyProps>()
 </script>

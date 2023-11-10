@@ -80,7 +80,7 @@ const { cardElement, videoElement, isCardHovered } = useVideoCard()
         ref="videoElement"
         class="card-overlay card-height"
         :class="{ '-z-1 opacity-0': !isCardHovered }"
-        autoplay loop muted playsinline
+        loop muted autoplay playsinline
         preload="none"
         wdith="100%"
         :src="props.info.playUrl"

@@ -8,5 +8,5 @@ const props = defineProps<DropdownMenuSeparatorProps>()
 </script>
 
 <template>
-  <DropdownMenuSeparator v-bind="props" class="-mx-1 my-1 h-px bg-muted" />
+  <DropdownMenuSeparator v-bind="props" class="my-1 h-px bg-muted -mx-1" />
 </template>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import { cn } from '~/lib/utils'
+import { cn } from '~/utils/css'
 
 import { cva } from 'class-variance-authority'
 

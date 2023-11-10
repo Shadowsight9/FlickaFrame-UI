@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { provide, useAttrs } from 'vue'
 import { useId } from 'radix-vue'
-import { cn } from '~/lib/utils'
+import { cn } from '~/utils/css'
 import { FORM_ITEM_INJECTION_KEY } from './useFormField'
 
 defineOptions({

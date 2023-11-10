@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { TooltipContent, type TooltipContentEmits, type TooltipContentProps, TooltipPortal, useForwardPropsEmits } from 'radix-vue'
-import { cn } from '~/lib/utils'
+import { cn } from '~/utils/css'
 
 const props = withDefaults(defineProps<TooltipContentProps>(), {
   sideOffset: 4,

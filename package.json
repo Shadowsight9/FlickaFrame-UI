@@ -1,5 +1,5 @@
 {
-  "name": "nuxt-app",
+  "name": "flicka-frame",
   "type": "module",
   "private": true,
   "scripts": {
@@ -7,18 +7,21 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
+    "analyze": "nuxt analyze",
+    "cleanup": "nuxt cleanup",
     "postinstall": "nuxt prepare",
+    "typecheck": "nuxi typecheck",
+    "lint": "eslint .",
     "shadcn": "shadcn-vue"
   },
   "dependencies": {
+    "@ant-design-vue/nuxt": "^1.1.2",
     "@formkit/auto-animate": "^0.8.0",
     "@iconify-json/iconamoon": "^1.1.1",
     "@iconify-json/mdi": "^1.1.55",
-    "@nuxt/image": "^1.0.0",
     "@oplayer/core": "^1.2.31",
-    "@oplayer/ui": "1.2.32",
+    "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
     "@pinia/nuxt": "^0.5.1",
-    "@tanstack/vue-table": "^8.10.7",
     "@unocss/nuxt": "^0.57.1",
     "@unocss/preset-icons": "^0.57.1",
     "@unocss/reset": "^0.57.1",
@@ -27,6 +30,7 @@
     "@vueuse/nuxt": "^10.5.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
+    "dayjs": "^1.11.10",
     "lodash-es": "^4.17.21",
     "lucide-vue-next": "^0.289.0",
     "nuxt": "^3.8.0",
@@ -40,18 +44,16 @@
     "vee-validate": "^4.11.8",
     "vue": "^3.3.6",
     "vue-router": "^4.2.5",
+    "vue-tsc": "^1.8.22",
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@ant-design-vue/nuxt": "^1.1.2",
     "@nuxt/devtools": "latest",
     "@nuxtjs/eslint-module": "^4.1.0",
-    "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
     "@shadowsight9/eslint-config": "^0.0.9",
     "@types/lodash-es": "^4.17.10",
     "@types/spark-md5": "^3.0.3",
     "@unocss/transformer-directives": "^0.57.1",
-    "dayjs-nuxt": "^2.1.9",
     "eslint": "^8.52.0"
   }
 }

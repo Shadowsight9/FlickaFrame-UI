@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Search } from 'lucide-vue-next'
 import { ComboboxInput, type ComboboxInputProps } from 'radix-vue'
-import { cn } from '~/lib/utils'
+import { cn } from '~/utils/css'
 
 const props = defineProps<ComboboxInputProps>()
 </script>

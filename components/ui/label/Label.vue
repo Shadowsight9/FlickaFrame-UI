@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Label, type LabelProps } from 'radix-vue'
-import { cn } from '~/lib/utils'
+import { cn } from '~/utils/css'
 
 const props = defineProps<LabelProps & { class?: string }>()
 </script>
