@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api",
+      "destination": "http://1.116.97.82/api/v1"
+    }
+  ]
+}
