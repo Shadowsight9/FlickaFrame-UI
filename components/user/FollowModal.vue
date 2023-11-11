@@ -49,6 +49,7 @@ const columnData = computed(() => {
   <UiDialog v-model:open="open">
 
     <UiDialogContent class="p-10 sm:max-w-[625px]">
+      <UiDialogTitle v-show="false" />
       <UiTabs v-model:model-value="selectedTab" class="w-full">
         <UiTabsList class="grid grid-cols-2 w-full">
           <UiTabsTrigger v-for="item in columnData" :key="item.key" :value="item.key">
