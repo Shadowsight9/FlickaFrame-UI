@@ -3,43 +3,67 @@ import dayjs from 'dayjs'
 import type { PlayHistory, SessionResponse, User } from '~/models'
 
 export const usePlayHistoryStore = defineStore('playHistory', () => {
-  const playHistory = ref(new Map<string, PlayHistory>())
+  const playHistory = ref<Record<string, PlayHistory>>({})
 
-  const create = (id: string, lastWatchedAt: number, total: number) => {
-    playHistory.value.set(id, {
+  const create = (id: string, total: number) => {
+    if (playHistory.value[id]) return
+    playHistory.value[id] = {
       videoId: id,
-      progress: 0,
       total,
       consumed: 0,
-      lastWatchedAt,
-    })
+      lastWatchedAt: dayjs().unix(),
+    }
   }
 
   const get = (id: string) => {
-    return playHistory.value.get(id)
+    return playHistory.value[id]
   }
 
-  const update = (id: string, content: Partial<PlayHistory>) => {
-    const history = playHistory.value.get(id)
-    if (history) {
-      playHistory.value.set(id, { ...history, ...content })
+  const stop = (id: string, lastProgress?: number) => {
+    const history = get(id)
+    if (!history?.lastPlayedAt) return
+
+    const consumed = dayjs().unix() - history.lastWatchedAt + history.consumed
+
+    playHistory.value[id] = {
+      ...history,
+      consumed,
+      lastProgress,
+      lastPlayedAt: undefined,
+    }
+  }
+
+  const start = (id: string) => {
+    const history = get(id)
+    if (!history) return
+    if (history.lastPlayedAt) return
+
+    playHistory.value[id] = {
+      ...history,
+      lastPlayedAt: dayjs().unix(),
     }
   }
 
   const del = (id: string) => {
-    playHistory.value.delete(id)
+    if (!playHistory.value[id]) return
+    delete playHistory.value[id]
   }
 
   const cleanup = () => {
-    playHistory.value = new Map<string, PlayHistory>()
+    playHistory.value = {}
   }
+
   return {
+    playHistory,
     cleanup,
     create,
     get,
     del,
-    update,
+    start,
+    stop,
   }
+}, {
+  persist: true,
 })
 
 export const useSessionStore = defineStore('session', () => {

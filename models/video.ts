@@ -96,8 +96,10 @@ export interface VideoTag {
 
 export interface PlayHistory {
   videoId: string
-  progress: number
-  total: number
-  consumed: number
-  lastWatchedAt: number
+
+  total: number // seconds
+  consumed: number // seconds
+  lastProgress?: number // seconds
+  lastWatchedAt: number // turn to active
+  lastPlayedAt?: number // pause to playing
 }

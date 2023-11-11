@@ -5,7 +5,7 @@ import ui from 'oplayer-ui-plus'
 import type { VideoItem } from '~/models'
 import dayjs from 'dayjs'
 
-import { createVideoHistory, getVideoHistory } from '~/apis'
+import { createVideoHistory } from '~/apis'
 
 const props = withDefaults(defineProps<{
   active?: boolean
@@ -47,6 +47,7 @@ const playerOptions: PlayerOptions = {
 }
 
 const player = shallowRef<null | Player>(null)
+
 const videoElement = ref<HTMLVideoElement | null>(null)
 const historyStore = usePlayHistoryStore()
 
@@ -81,15 +82,29 @@ onMounted(() => {
 
   watch(() => props.active, (newVal) => {
     if (newVal) {
-      player.value?.play()
-      if (props.videoItem) {
+      if (props.videoItem && player.value) {
         createVideoHistory(props.videoItem.id)
-        getVideoHistory()
+
+        historyStore.create(props.videoItem.id, props.videoItem.videoDuration)
+
+        player.value.on('loadedmetadata', () => {
+          const prevTime = historyStore.get(props.videoItem!.id).lastProgress || 0
+          player.value?.seek(prevTime)
+        })
+        player.value.play()
       }
     } else {
       player.value?.pause()
     }
   }, { immediate: true })
+
+  player.value?.on(['play', 'playing'], () => {
+    props.videoItem && historyStore.start(props.videoItem.id)
+  })
+
+  player.value?.on(['pause', 'destroy', 'abort', 'error'], () => {
+    props.videoItem && historyStore.stop(props.videoItem.id, player.value?.currentTime)
+  })
 })
 
 onUnmounted(() => {

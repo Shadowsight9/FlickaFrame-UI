@@ -69,3 +69,9 @@ export function cleanVideoHistory() {
     method: 'DELETE',
   })
 }
+
+export function shareVideo(videoId: string) {
+  return $fetch<ApiResult<null>>(`/api/video/share/${videoId}`, {
+    method: 'POST',
+  })
+}

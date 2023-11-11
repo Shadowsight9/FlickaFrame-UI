@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { VideoItem } from '~/models'
-import { getVideoInfo } from '~/apis'
+import { getVideoInfo, shareVideo } from '~/apis'
 
 const route = useRoute()
 
@@ -10,6 +10,9 @@ if (route.params.id) {
   const { success, data } = await getVideoInfo(route.params.id as string)
   if (success) {
     cardInfo.value = data.video
+    if (route.query.from) {
+      shareVideo(cardInfo.value.id)
+    }
   }
 }
 
