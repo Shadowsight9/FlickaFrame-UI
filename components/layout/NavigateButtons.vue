@@ -2,8 +2,10 @@
 interface MenuItem {
   icon: string
   text: string
-  path: string
+  path?: string
+  external?: boolean
   show?: boolean
+  render?: () => JSX.Element
 }
 
 const props = defineProps<{
@@ -11,6 +13,13 @@ const props = defineProps<{
 }>()
 
 const route = useRoute()
+
+function navigate(item: MenuItem) {
+  navigateTo(item.path, {
+    external: item.external,
+    open: item.external ? { target: '_blank' } : undefined,
+  })
+}
 
 </script>
 
@@ -22,15 +31,19 @@ const route = useRoute()
       :key="item.text"
     >
       <UiButton
-        v-if="item.show !== false"
+        v-if="item.show !== false && !item.render"
         :variant="route.path === item.path ? 'secondary' : 'ghost'"
         size="lg"
         class="w-full justify-start"
-        @click="navigateTo(item.path)"
+        @click="navigate(item)"
       >
         <div class="mr-2 text-xl" :class="item.icon" />
         {{ item.text }}
       </UiButton>
+      <component
+        :is="item.render"
+        v-if="item.show !== false && item.render"
+      />
 
     </template>
 

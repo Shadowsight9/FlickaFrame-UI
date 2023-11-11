@@ -60,6 +60,12 @@ export function getVideoHistory(query?: VideoFeedQuery) {
   })
 }
 
+export function getFavoriteVideo(query?: VideoFeedQuery) {
+  return $fetch<ApiResult<VideoFeedResponse>>('/api/video/liked', {
+    query,
+  })
+}
+
 export function deleteVideoHistory(videoId: string) {
   return $fetch<ApiResult<null>>(`/api/video/play-history/${videoId}`, {
     method: 'DELETE',

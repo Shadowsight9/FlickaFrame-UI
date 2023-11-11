@@ -25,9 +25,6 @@ function handleSearch() {
   })
 }
 
-const isDark = useDark()
-// const toggleDark = useToggle(isDark)
-
 </script>
 
 <template>
@@ -70,7 +67,6 @@ const isDark = useDark()
 
     </UiButton>
 
-    <UiToggle @click="isDark = !isDark">dsadsa</UiToggle>
     <UserSessionModal v-model="store.isSessionModalOpen" />
 
   </nav>

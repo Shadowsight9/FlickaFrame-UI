@@ -1,4 +1,5 @@
-<script setup lang='ts'>
+<script setup lang='tsx'>
+import LayoutSetting from './Setting.vue'
 
 const store = useSessionStore()
 
@@ -18,16 +19,16 @@ const menu = computed(() => [
       { icon: 'i-mdi-post', text: '创作', path: '/post', show: store.isLogin },
       { icon: 'i-mdi-laptop-account', text: '我的频道', path: `/profile/${store.user.userId}`, show: store.isLogin },
       { icon: 'i-mdi-history', text: '历史记录', path: '/history', show: store.isLogin },
-      { icon: 'i-mdi-account-heart-outline', text: '赞过', path: '/favorate', show: store.isLogin },
+      { icon: 'i-mdi-account-heart-outline', text: '赞过', path: '/favorite', show: store.isLogin },
       { icon: 'i-mdi-message-alert-outline', text: '通知', path: '/notify', show: store.isLogin },
     ],
   },
 ])
 
 const fixedMenus = [
-  { icon: 'i-mdi-settings', text: '设置', path: '/setting' },
-  { icon: 'i-mdi-progress-question', text: '帮助', path: '/help' },
-  { icon: 'i-mdi-feedback', text: '发送反馈', path: '/feedback' },
+  { icon: 'i-mdi-settings', text: '设置', render: () => <LayoutSetting /> },
+  { icon: 'i-mdi-progress-question', text: '帮助', path: 'https://nmffrqogqd.feishu.cn/docx/U89TdCNMNommKdxmurQcmSV7nAg', external: true },
+  { icon: 'i-mdi-feedback', text: '发送反馈', path: 'https://github.com/FlickaFrame', external: true },
 ]
 
 </script>
