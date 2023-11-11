@@ -8,18 +8,18 @@ const menu = computed(() => [
     sumMenus: [
       { icon: 'i-mdi-home', text: '发现', path: '/explore' },
       { icon: 'i-mdi-movie-open-star-outline', text: '推荐', path: '/recommand' },
-      { icon: 'i-mdi-account-star', text: '关注', path: '/subscribe' },
+      { icon: 'i-mdi-account-star', text: '关注', path: '/subscribe', show: store.isLogin },
       { icon: 'i-mdi-weather-hurricane-outline', text: '最热', path: '/hot' },
     ],
   },
   {
     text: '我的',
     sumMenus: [
-      { icon: 'i-mdi-post', text: '创作', path: '/post' },
+      { icon: 'i-mdi-post', text: '创作', path: '/post', show: store.isLogin },
       { icon: 'i-mdi-laptop-account', text: '我的频道', path: `/profile/${store.user.userId}`, show: store.isLogin },
-      { icon: 'i-mdi-history', text: '历史记录', path: '/history' },
-      { icon: 'i-mdi-account-heart-outline', text: '赞过', path: '/favorate' },
-      { icon: 'i-mdi-message-alert-outline', text: '通知', path: '/notify' },
+      { icon: 'i-mdi-history', text: '历史记录', path: '/history', show: store.isLogin },
+      { icon: 'i-mdi-account-heart-outline', text: '赞过', path: '/favorate', show: store.isLogin },
+      { icon: 'i-mdi-message-alert-outline', text: '通知', path: '/notify', show: store.isLogin },
     ],
   },
 ])

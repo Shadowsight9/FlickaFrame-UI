@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { getFollowingVideo } from '~/apis'
+definePageMeta({
+  needAuth: true,
+})
 
 const { feedList, isEnd, addMore, pending } = useFeedData(ref('0'), {}, getFollowingVideo)
 

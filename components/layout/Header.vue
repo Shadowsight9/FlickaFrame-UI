@@ -2,9 +2,16 @@
 import Logo from '~/assets/logo.png'
 
 const store = useSessionStore()
+const route = useRoute()
 
 function handleLogout() {
   store.cleanup()
+
+  const meta = route.meta
+  if (meta.needAuth) {
+    navigateTo({ name: 'explore' })
+  }
+
   message.info('退出登录成功')
 }
 

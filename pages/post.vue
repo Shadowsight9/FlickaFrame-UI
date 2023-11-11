@@ -5,6 +5,11 @@ import * as z from 'zod'
 import { toTypedSchema } from '@vee-validate/zod'
 import { getFileUrl, getUrlOssKey, postVideo } from '~/apis'
 
+definePageMeta({
+  scrollToTop: true,
+  needAuth: true,
+})
+
 const form = useForm({
   validationSchema: toTypedSchema(z.object({
     playUrl: z.string().min(1),

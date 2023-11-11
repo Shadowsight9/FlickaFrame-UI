@@ -5,6 +5,9 @@ import { ALL_CATEGORY } from '~/models'
 
 const { feedList, isEnd, addMore, pending, refresh } = useFeedData(ref(ALL_CATEGORY), {}, getVideoHistory)
 
+definePageMeta({
+  needAuth: true,
+})
 </script>
 
 <template>

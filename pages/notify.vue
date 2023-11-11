@@ -1,6 +1,9 @@
 <script setup lang="ts">
-
 import { NoticeType } from '~/models'
+
+definePageMeta({
+  needAuth: true,
+})
 
 const selectedTab = ref<NoticeType>(NoticeType.Follow)
 
