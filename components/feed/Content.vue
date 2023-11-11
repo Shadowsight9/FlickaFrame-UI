@@ -32,7 +32,7 @@ async function refreshVideoInfo() {
 <template>
   <div
     class="relative max-w-screen flex overflow-hidden"
-    :class="props.card ? 'border rounded-lg shadow-lg' : 'h-full w-full'"
+    :class="props.card ? 'border rounded-lg shadow-lg dark-border-blue/20' : 'h-full w-full'"
   >
     <div
       v-if="!props.active"
@@ -50,7 +50,7 @@ async function refreshVideoInfo() {
     <FeedInteraction
       v-show="expland"
       :info="info"
-      class="h-full bg-background -z-1 md:hidden 2xl:w-120 lg:w-100 lg:flex"
+      class="h-full bg-background md:hidden 2xl:w-120 lg:w-100 lg:flex"
       @refresh="refreshVideoInfo"
     />
   </div>

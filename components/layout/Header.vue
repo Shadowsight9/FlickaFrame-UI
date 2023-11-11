@@ -18,6 +18,9 @@ function handleSearch() {
   })
 }
 
+const isDark = useDark()
+// const toggleDark = useToggle(isDark)
+
 </script>
 
 <template>
@@ -59,6 +62,8 @@ function handleSearch() {
       点击登录
 
     </UiButton>
+
+    <UiToggle @click="isDark = !isDark">dsadsa</UiToggle>
     <UserSessionModal v-model="store.isSessionModalOpen" />
 
   </nav>

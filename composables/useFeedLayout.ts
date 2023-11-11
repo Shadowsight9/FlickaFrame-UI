@@ -1,3 +1,5 @@
+import { useAutoAnimate } from '@formkit/auto-animate/vue'
+
 export function useCardHeight(rowUnit = 5, rowGap = 3) {
   const rootElement: Ref<HTMLElement | null> = ref(null)
 
@@ -12,8 +14,8 @@ export function useCardHeight(rowUnit = 5, rowGap = 3) {
 }
 
 export function useCardColumnNum() {
-  const listElement = ref<HTMLElement | null>(null)
-  const { width } = useElementSize(listElement)
+  const [listElement] = useAutoAnimate()
+  const { width } = useElementSize(listElement as Ref<HTMLElement>)
   const cardColumnNum = computed(() => {
     let n = Math.floor(width.value / 300)
     if (n < 1) n = 1

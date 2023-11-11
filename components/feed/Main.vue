@@ -29,7 +29,7 @@ function handleOpenModal(idx: number) {
 </script>
 
 <template>
-  <div>
+  <div class="dark:bg-slate/10">
     <FeedCategoryTab
       v-if="props.showCagegory"
       v-model="categoryId"

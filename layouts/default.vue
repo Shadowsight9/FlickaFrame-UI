@@ -1,6 +1,6 @@
 <template>
 
-  <div class="default-layout h-screen w-full">
+  <div class="default-layout h-screen w-full bg-background">
     <AStyleProvider hash-priority="high">
 
       <LayoutHeader class="col-span-2" />

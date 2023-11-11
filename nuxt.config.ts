@@ -6,11 +6,11 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@unocss/nuxt',
     '@nuxtjs/eslint-module',
-    '@formkit/auto-animate',
     '@vueuse/motion/nuxt',
     '@pinia-plugin-persistedstate/nuxt',
     '@ant-design-vue/nuxt',
     'nuxt-swiper',
+    '@formkit/auto-animate',
   ],
   ssr: false,
   vite: {
@@ -18,9 +18,9 @@ export default defineNuxtConfig({
       script: { defineModel: true },
     },
   },
-  devServer: {
-    host: '0.0.0.0',
-  },
+  // devServer: {
+  //   host: '0.0.0.0',
+  // },
   nitro: {
     devProxy: {
       '/api': {

@@ -53,7 +53,7 @@ const { cardElement, videoElement, isCardHovered } = useVideoCard()
 
   <div
     ref="rootElement"
-    class="card w-full flex flex-col overflow-hidden rounded-5 shadow"
+    class="w-full flex flex-col overflow-hidden border rounded-5 bg-background shadow dark:border-0"
   >
     <div
       ref="cardElement"
@@ -71,16 +71,13 @@ const { cardElement, videoElement, isCardHovered } = useVideoCard()
           class="absolute bottom-2 right-2 rounded-md bg-black/30 p-1 text-sm text-white/80"
         >
           <UiDuration :value="props.info.videoDuration" />
-
         </div>
-
       </div>
-
       <video
         ref="videoElement"
         class="card-overlay card-height"
         :class="{ '-z-1 opacity-0': !isCardHovered }"
-        loop muted autoplay playsinline
+        loop autoplay muted playsinline
         preload="none"
         wdith="100%"
         :src="props.info.playUrl"
@@ -88,7 +85,7 @@ const { cardElement, videoElement, isCardHovered } = useVideoCard()
       />
     </div>
 
-    <div class="cursor-pointer p-3 align-middle text-14px">
+    <div class="cursor-pointer p-3 align-middle text-foreground">
       <UiBadge variant="secondary" class="mr-1">{{ props.info.category.name }} </UiBadge>    {{ props.info.title }}
     </div>
     <div class="mb-4 flex cursor-pointer justify-between px-3 text-sm">
@@ -102,7 +99,7 @@ const { cardElement, videoElement, isCardHovered } = useVideoCard()
         </span>
       </div>
 
-      <div class="flex items-center gap-1">
+      <div class="flex items-center gap-1 text-foreground/80">
         <div class="i-mdi-like" />
         {{ props.info.favoriteCount }}
       </div>

@@ -40,6 +40,9 @@ const { data } = useAsyncData(async () => {
   background-color: rgba(255, 255, 255, 0.4);
   backdrop-filter: saturate(50%) blur(4px);
 }
+.dark .navbar-wrapper {
+  background-color: rgba(255, 255, 255, 0);
+}
 .selected {
   @apply bg-foreground/10
 }

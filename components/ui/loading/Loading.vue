@@ -21,7 +21,10 @@ useIntersectionObserver(loadingElement, (vals) => {
 
 <template>
 
-  <div ref="loadingElement" class="flex-center gap-2 py-4">
+  <div
+    ref="loadingElement"
+    class="flex-center gap-2 py-4"
+  >
     <template v-if="!props.isEnd">
       <div v-if="props.loading" class="i-mdi-loading animate-spin" />
       正在加载 ...

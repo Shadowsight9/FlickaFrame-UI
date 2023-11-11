@@ -36,7 +36,7 @@ async function handleShare() {
 </script>
 
 <template>
-  <div class="w-10 flex flex-col">
+  <div class="w-10 flex flex-col text-foreground">
     <!-- 博主 -->
     <div class="flex-center gap-2 px-6 py-8">
 
