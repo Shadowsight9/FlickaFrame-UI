@@ -21,7 +21,7 @@ const menus = computed(() => {
     {
       name: '删除评论',
       class: 'i-mdi-delete',
-      visible: store.user.userId === props.authorId,
+      visible: store.user.userId === props.comment.userInfo.userId,
       action: async (id: string) => {
         const { success } = await deleteComment(id, props.level)
 
