@@ -50,7 +50,7 @@ async function refreshVideoInfo() {
     <FeedInteraction
       v-show="expland"
       :info="info"
-      class="h-full bg-background md:hidden 2xl:w-120 lg:w-100 lg:flex"
+      class="h-full bg-background -z-1 md:hidden 2xl:w-120 lg:w-100 lg:flex"
       @refresh="refreshVideoInfo"
     />
   </div>

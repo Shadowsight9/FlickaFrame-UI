@@ -89,12 +89,12 @@ const { activeCardList, activeCardOrder, pending, cardNeighbours, navgate } = us
 function useDymanicPath() {
   watch(() => cardNeighbours.value.current, (newVal) => {
     if (!newVal) return
-    history.replaceState(null, '', `/explore/${newVal.id}`)
+    history.replaceState(history.state, '', `/explore/${newVal.id}`)
   }, { immediate: true })
 
   watch(show, (newVal) => {
     if (!newVal) {
-      history.replaceState(null, '', '/explore')
+      history.replaceState(history.state, '', '/explore')
     }
   })
 }

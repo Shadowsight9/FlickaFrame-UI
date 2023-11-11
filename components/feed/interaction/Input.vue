@@ -11,12 +11,11 @@ const emit = defineEmits<{
 }>()
 
 const commentTarget = defineModel<CommentTarget | undefined>('target')
+const focus = defineModel<boolean>('focus', { default: false })
 
 const text = ref('')
 const atElement = ref<HTMLElement | null>(null)
 const { width: atElementWidth } = useElementSize(atElement)
-
-const inputFoucsed = ref(false)
 
 const loading = ref(false)
 
@@ -47,13 +46,13 @@ async function send() {
   } else {
     message.error('评论失败')
   }
-  inputFoucsed.value = true
+  focus.value = true
   loading.value = false
 }
 
 onKeyStroke('Backspace', () => {
   if (text.value) return
-  if (!inputFoucsed.value) return
+  if (!focus.value) return
 
   commentTarget.value = undefined
 })
@@ -65,7 +64,7 @@ onKeyStroke('Backspace', () => {
 
     <div class="relative flex-1">
       <UiInput
-        v-model:is-focus="inputFoucsed"
+        v-model:focus="focus"
         v-model="text"
         :style="{ paddingLeft: commentTarget ? `calc(${atElementWidth}px + 2.1rem)` : '0.75rem' }"
         class="input h-12 text-base"

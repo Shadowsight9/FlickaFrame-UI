@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { getCagegory } from '~/apis'
+import { ALL_CATEGORY } from '~/models'
 
-const selectedId = defineModel({ default: '0' })
+const selectedId = defineModel({ default: ALL_CATEGORY })
 
 const fixedCategory = [
-  { id: '0', name: '全部' },
+  { id: ALL_CATEGORY, name: '全部' },
 ]
 
 const { data } = useAsyncData(async () => {
@@ -18,21 +19,27 @@ const { data } = useAsyncData(async () => {
 
 <template>
 
-  <div class="z-10 flex flex-wrap justify-start gap-6 overflow-hidden px-6 py-3">
+  <nav class="navbar-wrapper z-10 flex flex-wrap justify-start gap-6 overflow-hidden px-6 py-3">
     <UiButton
       v-for="item in data"
-      :key="item.id" variant="outline"
+      :key="item.id"
+      variant="outline"
       class="h-8 whitespace-nowrap border-accent/50 rounded-sm bg-accent/20 hover:bg-foreground/10"
       :class="{ selected: selectedId === item.id }"
       @click="selectedId = item.id"
     >
       {{ item.name }}
     </UiButton>
-  </div>
+  </nav>
 
 </template>
 
 <style scoped>
+
+.navbar-wrapper {
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: saturate(50%) blur(4px);
+}
 .selected {
   @apply bg-foreground/10
 }

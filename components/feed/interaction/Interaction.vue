@@ -102,7 +102,6 @@ async function handleShare() {
         v-model:target="commentTarget"
         :video-id="info.id"
         class="my-4 px-4"
-        :loading="true"
         @send="refreshComments"
       />
 
