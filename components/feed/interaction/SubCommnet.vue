@@ -4,6 +4,7 @@ import { deleteComment } from '~/apis'
 import dayjs from 'dayjs'
 
 const props = defineProps<{
+  videoId: string
   comment: CommentItem
   authorId: string
   level: CommentLevel
@@ -23,7 +24,7 @@ const menus = computed(() => {
       class: 'i-mdi-delete',
       visible: store.user.userId === props.comment.userInfo.userId,
       action: async (id: string) => {
-        const { success } = await deleteComment(id, props.level)
+        const { success } = await deleteComment(id, props.level, props.videoId)
 
         if (success) {
           emit('delete')

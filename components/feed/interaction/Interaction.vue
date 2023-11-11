@@ -13,9 +13,9 @@ const emit = defineEmits<{
 
 const store = useSessionStore()
 
-const { data: comments, refresh: refreshComments } = useAsyncData(props.info.id, async () => {
+const { data: commentData, refresh: refreshComments } = useAsyncData(props.info.id, async () => {
   const { success, data } = await getCommnets(props.info.id)
-  return success ? data.comments : []
+  return success ? data : null
 })
 
 const commentTarget = ref<CommentTarget>()
@@ -88,11 +88,12 @@ async function handleToTag(id: string, name: string) {
     <!-- post评论 -->
     <div class="flex-1 overflow-y-auto px-6 pt-3">
       <div class="mb-2 text-gray/90">
-        共 {{ info.commentNum }} 条评论
+        共 {{ commentData?.total }} 条评论
       </div>
       <FeedInteractionComment
         :author-id="info.author.userId"
-        :comments="comments"
+        :comments="commentData?.comments"
+        :video-id="info.id"
         @reply="handleReply"
         @delete="refreshComments"
       />
@@ -108,6 +109,7 @@ async function handleToTag(id: string, name: string) {
         type="video"
         class="my-4 px-8 text-xl"
         show-share
+        :share-num="info.shareNum"
         @share="handleShare"
       />
 

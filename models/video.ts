@@ -43,6 +43,7 @@ export interface VideoItem {
   commentNum: number
   shareNum: number
   isFavorite: boolean
+  viewNum: number
 
   videoDuration: number
   videoHeight: number

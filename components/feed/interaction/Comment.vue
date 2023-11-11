@@ -4,6 +4,7 @@ import { CommentLevel } from '~/models'
 
 const props = defineProps<{
   authorId: string
+  videoId: string
   comments: Comment[] | null
 }>()
 
@@ -33,6 +34,7 @@ function handleReply(pid: string, tname: string, tid?: string) {
         class="w-full"
         :author-id="props.authorId"
         :comment="item"
+        :video-id="props.videoId"
         :level="CommentLevel.Parent"
         @delete="emit('delete')"
         @reply="handleReply(item.id, item.userInfo.nickName)"
@@ -43,6 +45,7 @@ function handleReply(pid: string, tname: string, tid?: string) {
           v-for="subItem in item.childComments"
           :key="subItem.id"
           class="ml-10"
+          :video-id="props.videoId"
           :level="CommentLevel.Child"
           :author-id="props.authorId"
           :comment="subItem"

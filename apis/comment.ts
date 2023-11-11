@@ -14,10 +14,13 @@ export function createSubComment(payload: SubCommentRequest) {
   })
 }
 
-export function deleteComment(commnetId: string, level: CommentLevel) {
+export function deleteComment(commnetId: string, level: CommentLevel, videoId: string) {
   return $fetch<ApiResult<null>>(`/api/comment/${commnetId}`, {
     method: 'DELETE',
-    query: { type: level },
+    query: {
+      type: level,
+      videoId,
+    },
   })
 }
 

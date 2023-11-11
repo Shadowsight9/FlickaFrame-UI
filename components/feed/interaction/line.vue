@@ -7,8 +7,8 @@ const props = defineProps<{
   likedCount?: number
   id: string
   type: 'video' | 'comment'
-
   showShare: boolean
+  shareNum?: number
 }>()
 
 const emit = defineEmits<{
@@ -31,8 +31,8 @@ const favoriteMap = {
 
 const action = favoriteMap[props.type]
 
-const isFavorite = computed({
-  get: () => store.get(props.id, props.liked),
+const favoriteState = computed({
+  get: () => store.get(props.id, { isLike: props.liked, likeCount: props.likedCount || 0 }),
   set: value => store.set(props.id, value),
 })
 
@@ -42,20 +42,21 @@ async function changeLikeStatus() {
   if (loading.value) return
   loading.value = true
 
-  const res = isFavorite.value ? (await action.unfav()) : (await action.fav())
+  const res = favoriteState.value.isLike ? (await action.unfav()) : (await action.fav())
 
   if (!res.success) {
-    message.error(`${isFavorite.value ? '取消' : ''}点赞失败`)
+    message.error(`${favoriteState.value.isLike ? '取消' : ''}点赞失败`)
   } else {
-    message.info(`${isFavorite.value ? '取消' : ''}点赞成功`)
-    isFavorite.value = !isFavorite.value
+    message.info(`${favoriteState.value.isLike ? '取消' : ''}点赞成功`)
+    favoriteState.value.isLike = !favoriteState.value.isLike
+    favoriteState.value.likeCount = res.data.likeCount
   }
   loading.value = false
 }
 
 const likeCls = computed(() => {
   if (loading.value) return 'i-mdi-loading animate-spin'
-  return isFavorite.value ? 'i-iconamoon-like-fill' : 'i-iconamoon-like'
+  return favoriteState.value.isLike ? 'i-iconamoon-like-fill' : 'i-iconamoon-like'
 })
 </script>
 
@@ -66,7 +67,7 @@ const likeCls = computed(() => {
         class="icon"
         :class="likeCls"
       />
-      <div class="text">赞 {{ props.likedCount || '' }}</div>
+      <div class="text">赞 {{ favoriteState.likeCount }}</div>
     </div>
 
     <div class="wrapper" @click="() => emit('reply')">
@@ -77,6 +78,7 @@ const likeCls = computed(() => {
 
     <div v-if="props.showShare" class="wrapper" @click="() => emit('share')">
       <div class="icon i-mdi-share" />
+      <div class="text"> {{ props.shareNum }}</div>
     </div>
 
   </div>

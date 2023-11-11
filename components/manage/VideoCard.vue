@@ -7,12 +7,16 @@ const props = defineProps<{
   info: VideoItem
 }>()
 
+const emit = defineEmits<{
+  (e: 'refresh'): void
+}>()
+
 const statistics = computed(() => {
   return [
     {
       title: '播放量',
       class: 'i-mdi-filmstrip-box',
-      value: 0,
+      value: props.info.viewNum,
     },
     {
       title: '点赞数',
@@ -36,6 +40,7 @@ async function handleDeleteVideo(id: string) {
   const { success } = await deleteVideo(id)
   if (success) {
     message.success('删除视频成功')
+    emit('refresh')
   } else {
     message.error('删除视频失败')
   }
@@ -88,12 +93,12 @@ async function handleDeleteVideo(id: string) {
 
     <div class="flex-col-center gap-6 p-2">
 
-      <UiButton>
+      <UiButton class="whitespace-nowrap">
         <div class="i-mdi-edit mr-1" />
         编辑
       </UiButton>
 
-      <UiButton variant="destructive" @click="handleDeleteVideo(info.id)">
+      <UiButton class="whitespace-nowrap" variant="destructive" @click="handleDeleteVideo(info.id)">
         <div class="i-mdi-delete mr-1" />
         删除
       </UiButton>

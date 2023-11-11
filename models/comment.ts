@@ -4,6 +4,7 @@ export interface CommnetResponse {
 
 export interface CommentListResponse {
   comments: Comment[]
+  total: number
 }
 
 export enum CommentLevel {

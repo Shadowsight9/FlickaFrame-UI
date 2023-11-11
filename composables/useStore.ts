@@ -101,5 +101,5 @@ export const useFollowChange = defineStore('followChangeset', () => {
 })
 
 export const useLikeChange = defineStore('likeChangeset', () => {
-  return useChangeSet<string, boolean>()
+  return useChangeSet<string, { isLike: boolean; likeCount: number }>()
 })
