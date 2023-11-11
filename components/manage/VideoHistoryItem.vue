@@ -3,10 +3,12 @@ import type { VideoItem } from '~/models'
 import { deleteVideoHistory } from '~/apis'
 import dayjs from 'dayjs'
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   info: VideoItem
-  isOther?: boolean
-}>()
+  isOwn?: boolean
+}>(), {
+  isOwn: true,
+})
 
 const emit = defineEmits<{
   (e: 'refresh'): void
@@ -15,7 +17,7 @@ const emit = defineEmits<{
 const historyStore = usePlayHistoryStore()
 
 function getHistory() {
-  if (props.isOther) {
+  if (!props.isOwn) {
     return { videoHistory: undefined, watchedPercent: 0 }
   }
 
@@ -57,7 +59,7 @@ async function deleteHistory() {
 
 <template>
   <div class="m-2 w-full flex items-center gap-3">
-    <div v-if="!isOther" class="min-w-24 text-sm font-mono text-foreground/70">
+    <div v-if="isOwn" class="min-w-24 text-sm font-mono text-foreground/70">
       {{ videoHistory?.lastWatchedAt ? dayjs(videoHistory.lastWatchedAt * 1000).format('M-D HH:mm') : '' }}
     </div>
     <div class="flex flex-1 border rounded-lg shadow">
@@ -83,11 +85,11 @@ async function deleteHistory() {
         <div>
           <span class="w-full inline-flex items-center text-sm text-foreground/50">
 
-            <template v-if="videoHistory?.lastProgress && !isOther">
+            <template v-if="videoHistory?.lastProgress && isOwn">
               <div class="i-mdi-laptop mr-2" />
               上次看到 {{ formatDuration(videoHistory?.lastProgress) }}
             </template>
-            <template v-else-if="!isOther">
+            <template v-else-if="isOwn">
               <div class="i-mdi-earth-remove mr-2" />
               进度丢失
             </template>
@@ -107,7 +109,7 @@ async function deleteHistory() {
 
         </div>
 
-        <UiTooltipProvider v-if="!isOther">
+        <UiTooltipProvider v-if="isOwn">
           <UiTooltip>
             <UiTooltipTrigger class="absolute bottom-1/2 right-4 translate-y-1/2">
               <div

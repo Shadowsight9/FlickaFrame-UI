@@ -100,7 +100,9 @@ const { cardElement, videoElement, isCardHovered } = useVideoCard()
       </div>
 
       <div class="flex items-center gap-1 text-foreground/80">
-        <div class="i-mdi-like" />
+        <div class="i-mdi-eye" />
+        {{ props.info.viewNum }}
+        <div class="i-mdi-like ml-3" />
         {{ props.info.favoriteCount }}
       </div>
     </div>
