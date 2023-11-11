@@ -5,6 +5,7 @@ import dayjs from 'dayjs'
 
 const props = defineProps<{
   info: VideoItem
+  isOther?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -13,9 +14,18 @@ const emit = defineEmits<{
 
 const historyStore = usePlayHistoryStore()
 
-const videoHistory = historyStore.get(props.info.id)
+function getHistory() {
+  if (props.isOther) {
+    return { videoHistory: undefined, watchedPercent: 0 }
+  }
 
-const watchedPercent = videoHistory ? videoHistory.consumed / videoHistory.total : 0
+  const videoHistory = historyStore.get(props.info.id)
+  const watchedPercent = videoHistory ? videoHistory.consumed / videoHistory.total : 0
+
+  return { videoHistory, watchedPercent }
+}
+
+const { videoHistory, watchedPercent } = getHistory()
 
 const loading = ref(false)
 
@@ -47,8 +57,8 @@ async function deleteHistory() {
 
 <template>
   <div class="m-2 w-full flex items-center gap-3">
-    <div class="min-w-24 text-sm font-mono text-foreground/70">
-      {{ videoHistory?.lastWatchedAt ? dayjs(videoHistory.lastWatchedAt * 1000).format('M-D H:m') : '' }}
+    <div v-if="!isOther" class="min-w-24 text-sm font-mono text-foreground/70">
+      {{ videoHistory?.lastWatchedAt ? dayjs(videoHistory.lastWatchedAt * 1000).format('M-D HH:mm') : '' }}
     </div>
     <div class="flex flex-1 border rounded-lg shadow">
       <div class="relative h-50 w-50 overflow-hidden rounded-lg">
@@ -68,11 +78,11 @@ async function deleteHistory() {
         <div>
           <span class="w-full inline-flex items-center text-sm text-foreground/50">
 
-            <template v-if="videoHistory?.lastProgress">
+            <template v-if="videoHistory?.lastProgress && !isOther">
               <div class="i-mdi-laptop mr-2" />
               上次看到 {{ formatDuration(videoHistory?.lastProgress) }}
             </template>
-            <template v-else>
+            <template v-else-if="!isOther">
               <div class="i-mdi-earth-remove mr-2" />
               进度丢失
             </template>
@@ -92,7 +102,7 @@ async function deleteHistory() {
 
         </div>
 
-        <UiTooltipProvider>
+        <UiTooltipProvider v-if="!isOther">
           <UiTooltip>
             <UiTooltipTrigger class="absolute bottom-1/2 right-4 translate-y-1/2">
               <div
