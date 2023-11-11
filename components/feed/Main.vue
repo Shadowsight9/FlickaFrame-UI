@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useCardColumnNum } from '~/composables/useFeedLayout'
+import { ALL_CATEGORY } from '~/models'
 
 const props = withDefaults(defineProps<{
   authorId?: string
@@ -10,7 +11,7 @@ const props = withDefaults(defineProps<{
 
 const isOpen = ref(false)
 
-const categoryId = ref('0')
+const categoryId = ref(ALL_CATEGORY)
 
 const { cardColumnNum, listElement } = useCardColumnNum()
 
