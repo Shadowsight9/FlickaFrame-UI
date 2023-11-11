@@ -44,6 +44,7 @@ async function refreshVideoInfo() {
       v-model:expland="expland"
       :active="active"
       :url="info.playUrl"
+      :in-swiper="!props.card"
       :video-item="props.info"
       class="h-full"
       :class="props.card ? 'aspect-9/16' : 'flex-1'"

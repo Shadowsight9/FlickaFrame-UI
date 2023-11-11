@@ -11,11 +11,11 @@ const { feedList, isEnd, addMore, pending } = useFeedData(ref(ALL_CATEGORY))
 
 const swiperInstance = ref<TSwiper>()
 
-onKeyStroke(['w', 'ArrowUp'], () => {
+onKeyStroke(['ArrowUp'], () => {
   swiperInstance.value?.slidePrev()
 })
 
-onKeyStroke(['s', 'ArrowDown'], () => {
+onKeyStroke(['ArrowDown'], () => {
   swiperInstance.value?.slideNext()
 })
 

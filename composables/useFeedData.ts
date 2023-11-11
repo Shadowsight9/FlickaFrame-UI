@@ -15,6 +15,7 @@ export function useFeedData(categoryId: Ref<string>, query: VideoFeedQuery = {},
 
   const { refresh: addMore, pending } = useAsyncData(fetchFn.name, async () => {
     const currentId = categoryId.value
+
     const { success, data, msg } = await fetchFn({
       cursor: isFresh ? undefined : cursor.value,
       limit: 20,

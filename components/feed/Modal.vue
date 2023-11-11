@@ -71,12 +71,12 @@ function useCardScroll(cardIndex: Ref<number>, cardList: Ref<VideoItem[]>) {
     })
   }
 
-  onKeyStroke(['s', 'ArrowDown'], (e) => {
+  onKeyStroke(['ArrowDown'], (e) => {
     e.preventDefault()
     navgate(1)
   })
 
-  onKeyStroke(['w', 'ArrowUp'], (e) => {
+  onKeyStroke(['ArrowUp'], (e) => {
     e.preventDefault()
     navgate(-1)
   })

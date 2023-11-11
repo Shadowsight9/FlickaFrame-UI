@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { getCagegory } from '~/apis'
 import { ALL_CATEGORY } from '~/models'
+import { throttle } from 'lodash-es'
+
+const props = defineProps<{
+  disabled: boolean
+}>()
 
 const selectedId = defineModel({ default: ALL_CATEGORY })
 
@@ -15,6 +20,10 @@ const { data } = useAsyncData(async () => {
   return [...fixedCategory, ...apiCategory]
 })
 
+const handleClick = throttle((id: string) => {
+  selectedId.value = id
+}, 1000)
+
 </script>
 
 <template>
@@ -23,10 +32,11 @@ const { data } = useAsyncData(async () => {
     <UiButton
       v-for="item in data"
       :key="item.id"
+      :disabled="props.disabled"
       variant="outline"
       class="h-8 whitespace-nowrap border-accent/50 rounded-sm bg-accent/20 hover:bg-foreground/10"
       :class="{ selected: selectedId === item.id }"
-      @click="selectedId = item.id"
+      @click="handleClick(item.id)"
     >
       {{ item.name }}
     </UiButton>

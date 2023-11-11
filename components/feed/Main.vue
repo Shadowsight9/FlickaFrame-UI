@@ -33,6 +33,7 @@ function handleOpenModal(idx: number) {
     <FeedCategoryTab
       v-if="props.showCagegory"
       v-model="categoryId"
+      :disabled="pending"
       class="sticky top-0 z-10"
     />
     <div ref="listElement" class="feed-list px-6">
