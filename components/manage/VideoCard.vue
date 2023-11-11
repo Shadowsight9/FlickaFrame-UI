@@ -49,7 +49,7 @@ async function handleDeleteVideo(id: string) {
     <div class="relative h-60 w-60 cursor-pointer overflow-hidden p-2" @click="navigateTo(`/explore/${info.id}`)">
       <img :src="info.thumbUrl" class="h-full w-full rounded-md object-cover">
       <div class="absolute bottom-3 right-3 rounded-md bg-black p-1 text-sm text-white opacity-70">
-        <UiDuration :value="info.videoDuration" />
+        {{ formatDuration(props.info.videoDuration) }}
       </div>
     </div>
 

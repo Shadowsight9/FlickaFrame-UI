@@ -66,6 +66,11 @@ async function deleteHistory() {
         <div class="absolute bottom-0 right-0 w-full">
           <UiProgress :model-value="Math.min(watchedPercent * 100, 100)" class="h-2" />
         </div>
+        <div
+          class="absolute bottom-1 right-1 rounded-sm bg-black/50 p-1 text-xs text-white/80"
+        >
+          {{ formatDuration(props.info.videoDuration) }}
+        </div>
       </div>
       <div class="relative w-full flex flex-col justify-between p-4 pl-4">
         <h2 class="cursor-pointer font-semibold" @click="handleToMain">

@@ -70,7 +70,7 @@ const { cardElement, videoElement, isCardHovered } = useVideoCard()
         <div
           class="absolute bottom-2 right-2 rounded-md bg-black/30 p-1 text-sm text-white/80"
         >
-          <UiDuration :value="props.info.videoDuration" />
+          {{ formatDuration(props.info.videoDuration) }}
         </div>
       </div>
       <video
