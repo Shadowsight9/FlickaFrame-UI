@@ -1,8 +1,16 @@
-import type { VideoItem } from '~/models'
-import { getVideoFeed } from '~/apis'
+interface FetchFnQuery {
+  cursor: string
+  limit: number
+}
 
-export function useCursorData(fetchFn = getVideoFeed) {
-  const dataList = ref<VideoItem[]>([])
+type FetchFn<T> = (q?: FetchFnQuery) => Promise<ApiResult<{
+  next: string
+  list: T[]
+  isEnd: boolean
+}>>
+
+export function useCursorData<T>(fetchFn: FetchFn<T>) {
+  const dataList = ref<T[]>([])
 
   const cursor = ref<string>('')
 
@@ -22,6 +30,7 @@ export function useCursorData(fetchFn = getVideoFeed) {
     cursor.value = data.next
     isEnd.value = data.isEnd || data.list.length === 0
 
+    // @ts-expect-error
     dataList.value.push(...data.list)
   })
 
