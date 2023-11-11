@@ -93,3 +93,11 @@ export interface VideoTag {
   id: string
   name: string
 }
+
+export interface PlayHistory {
+  videoId: string
+  progress: number
+  total: number
+  consumed: number
+  lastWatchedAt: number
+}

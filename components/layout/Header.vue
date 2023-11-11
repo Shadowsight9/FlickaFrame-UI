@@ -4,7 +4,7 @@ import Logo from '~/assets/logo.png'
 const store = useSessionStore()
 
 function handleLogout() {
-  store.clearSession()
+  store.cleanup()
   message.info('退出登录成功')
 }
 

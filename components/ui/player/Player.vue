@@ -5,6 +5,8 @@ import ui from 'oplayer-ui-plus'
 import type { VideoItem } from '~/models'
 import dayjs from 'dayjs'
 
+import { createVideoHistory, getVideoHistory } from '~/apis'
+
 const props = withDefaults(defineProps<{
   active?: boolean
   url: string
@@ -44,56 +46,55 @@ const playerOptions: PlayerOptions = {
   },
 }
 
-function useVideo() {
-  const player = shallowRef<null | Player>(null)
-  const videoElement = ref<HTMLVideoElement | null>(null)
+const player = shallowRef<null | Player>(null)
+const videoElement = ref<HTMLVideoElement | null>(null)
+const historyStore = usePlayHistoryStore()
 
-  const playerUi = ui({
-    keyboard: {
-      focused: false,
-      global: false,
-    },
-    rightController: {
-      items: [
-        {
-          name: RightController.Comment,
-          iconSvg: '<div class="i-mdi-comment" />',
-          defaultText: '',
-        },
-      ],
-      onClick: (name: string) => {
-        if (name === RightController.Comment) {
-          expland.value = !expland.value
-        }
+const playerUi = ui({
+  keyboard: {
+    focused: false,
+    global: false,
+  },
+  rightController: {
+    items: [
+      {
+        name: RightController.Comment,
+        iconSvg: '<div class="i-mdi-comment" />',
+        defaultText: '',
       },
-    },
-    title: convertVideoItem(props.videoItem),
-  })
-
-  onMounted(() => {
-    if (!videoElement.value) return
-    player.value = Player
-      .make(videoElement.value, playerOptions)
-      .use([playerUi])
-      .create()
-
-    watch(() => props.active, (newVal) => {
-      if (newVal) {
-        player.value?.play()
-      } else {
-        player.value?.pause()
+    ],
+    onClick: (name: string) => {
+      if (name === RightController.Comment) {
+        expland.value = !expland.value
       }
-    }, { immediate: true })
-  })
+    },
+  },
+  title: convertVideoItem(props.videoItem),
+})
 
-  onUnmounted(() => {
-    player.value?.destroy()
-  })
+onMounted(() => {
+  if (!videoElement.value) return
+  player.value = Player
+    .make(videoElement.value, playerOptions)
+    .use([playerUi])
+    .create()
 
-  return { videoElement, player }
-}
+  watch(() => props.active, (newVal) => {
+    if (newVal) {
+      player.value?.play()
+      if (props.videoItem) {
+        createVideoHistory(props.videoItem.id)
+        getVideoHistory()
+      }
+    } else {
+      player.value?.pause()
+    }
+  }, { immediate: true })
+})
 
-const { videoElement, player } = useVideo()
+onUnmounted(() => {
+  player.value?.destroy()
+})
 
 function registerSwiper() {
   if (!props.inSwiper) return

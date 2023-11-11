@@ -6,7 +6,7 @@ function responseHandler(response: FetchResponse<ApiResult<unknown>>) {
 
   if (response._data?.code === 401) {
     const store = useSessionStore()
-    store.clearSession()
+    store.cleanup()
     notification.info({
       message: '未登录',
       description: '您尚未登录哦～～登录后再继续吧',

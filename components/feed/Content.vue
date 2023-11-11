@@ -13,9 +13,10 @@ const props = withDefaults(defineProps<{
 const emit = defineEmits<{
   (e: 'active'): void
 }>()
-const info = ref(props.info)
 
-const expland = ref(true)
+const expland = ref(Boolean(props.card))
+
+const info = ref(props.info)
 
 async function refreshVideoInfo() {
   const { success, data } = await getVideoInfo(info.value.id)

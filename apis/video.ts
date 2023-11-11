@@ -46,3 +46,26 @@ export function deleteVideo(videoId: string) {
 export function getVideoInfo(videoId: string) {
   return $fetch<ApiResult<VideoInfoResponse>>(`/api/video/detail/${videoId}`)
 }
+
+export function createVideoHistory(videoId: string) {
+  return $fetch<ApiResult<null>>('/api/video/play-history', {
+    method: 'POST',
+    body: { videoId },
+  })
+}
+
+export function getVideoHistory() {
+  return $fetch<ApiResult<VideoFeedResponse>>('/api/video/play-history/')
+}
+
+export function deleteVideoHistory(videoId: string) {
+  return $fetch<ApiResult<null>>(`/api/video/play-history/${videoId}`, {
+    method: 'DELETE',
+  })
+}
+
+export function cleanVideoHistory() {
+  return $fetch<ApiResult<null>>('/api/video/play-history', {
+    method: 'DELETE',
+  })
+}
