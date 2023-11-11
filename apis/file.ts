@@ -1,4 +1,4 @@
-import type { FileResponse, OssHostResponse, UpTokenQuery, UpTokenResponse, UpTokenType } from '~/models'
+import type { FileResponse, OssHostResponse, UpTokenQuery, UpTokenResponse, UpTokenType, VideoQualityItem } from '~/models'
 import SparkMD5 from 'spark-md5'
 import { joinURL, parseURL } from 'ufo'
 
@@ -38,6 +38,28 @@ export async function getFileUrl(key: string) {
   const host = success ? data.endpoint : 'http://s2i8a2ssf.hn-bkt.clouddn.com'
 
   return joinURL(host, key)
+}
+
+export const QualityPostfix = {
+  '2300kbps': '.2300kbps.flv',
+  '1400kbps': '.1400kbps.mp4',
+}
+
+export function getQualityList(url: string) {
+  const res: VideoQualityItem[] = [{
+    name: '原画',
+    value: url,
+    default: true,
+  }]
+
+  Object.entries(QualityPostfix).forEach(([name, postfix]) => {
+    res.push({
+      name,
+      value: url.replace(/\.\w+$/, postfix),
+    })
+  })
+
+  return res
 }
 
 export function getUrlOssKey(url: string) {

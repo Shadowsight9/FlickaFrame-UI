@@ -5,7 +5,7 @@ import ui from 'oplayer-ui-plus'
 import type { VideoItem } from '~/models'
 import dayjs from 'dayjs'
 
-import { createVideoHistory } from '~/apis'
+import { createVideoHistory, getQualityList } from '~/apis'
 
 const props = withDefaults(defineProps<{
   active?: boolean
@@ -56,6 +56,16 @@ const playerUi = ui({
     focused: false,
     global: false,
   },
+  menu: [
+    {
+      name: '画质',
+      position: 'bottom', // or top
+      children: getQualityList(props.url),
+      onChange({ value }) {
+        player.value?.changeQuality({ src: value })
+      },
+    },
+  ],
   rightController: {
     items: [
       {

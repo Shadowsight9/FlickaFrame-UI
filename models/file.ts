@@ -24,3 +24,9 @@ export interface FileResponse {
   videoHeight?: string
   videoWidth?: string
 }
+
+export interface VideoQualityItem {
+  name: string
+  default?: boolean
+  value: string
+}
