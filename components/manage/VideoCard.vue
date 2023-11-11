@@ -44,7 +44,7 @@ async function handleDeleteVideo(id: string) {
 </script>
 
 <template>
-  <div class="m-2 h-68 w-2/5 flex items-center gap-4 rounded-md bg-secondary/40 px-4 py-2">
+  <div class="m-2 h-68 w-full flex items-center gap-4 rounded-md bg-secondary/40 px-4 px-8 py-2">
 
     <div class="relative h-60 w-60 cursor-pointer overflow-hidden p-2" @click="navigateTo(`/explore/${info.id}`)">
       <img :src="info.thumbUrl" class="h-full w-full rounded-md object-cover">

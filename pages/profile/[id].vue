@@ -43,7 +43,7 @@ function handleOpenFollower() {
 <template>
   <div v-if="data">
     <div class="relative flex-center p-4">
-      <div class="flex border rounded-lg px-20 py-6 backdrop-blur brightness-90">
+      <div class="z-5 flex border rounded-lg px-20 py-6 backdrop-blur brightness-90">
         <UiAvatar size="xl" class="relative">
 
           <div
@@ -100,7 +100,7 @@ function handleOpenFollower() {
         </div>
 
       </div>
-      <div class="absolute inset-0 overflow-hidden bg-sky/10 -z-1">
+      <div class="absolute inset-0 overflow-hidden bg-sky/10">
         <img :src="data.backgroundUrl" class="h-full w-full object-cover">
       </div>
       <div
