@@ -5,7 +5,7 @@ import { CommentLevel } from '~/models'
 const props = defineProps<{
   authorId: string
   videoId: string
-  comments: Comment[] | null
+  comments?: Comment[]
 }>()
 
 const emit = defineEmits<{
