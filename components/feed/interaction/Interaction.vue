@@ -33,6 +33,10 @@ async function handleShare() {
   }
 }
 
+async function handleToTag(id: string, name: string) {
+  navigateTo(`/search?tid=${id}&tname=${name}`)
+}
+
 </script>
 
 <template>
@@ -67,7 +71,16 @@ async function handleShare() {
       <div class="whitespace-pre-wrap text-base"> {{ info.description }} </div>
 
       <div class="pb-2">
-        <UiButton v-for="item in info.tags" :key="item.id" variant="link" size="lg" class="h-7 px-1"> #{{ item.name }}</UiButton>
+        <UiButton
+          v-for="item in info.tags"
+          :key="item.id"
+          variant="link"
+          size="lg"
+          class="h-7 px-1"
+          @click="handleToTag(item.id, item.name)"
+        >
+          #{{ item.name }}
+        </UiButton>
       </div>
       <div class="text-foreground/50"> {{ dayjs(info.createdAt).format('YYYY-MM-DD') }} </div>
       <UiSeparator class="mt-3" />

@@ -48,6 +48,8 @@ export function getVideoInfo(videoId: string) {
 }
 
 export function createVideoHistory(videoId: string) {
+  const store = useSessionStore()
+  if (!store.isLogin) return Promise.resolve({ success: true })
   return $fetch<ApiResult<null>>('/api/video/play-history', {
     method: 'POST',
     body: { videoId },

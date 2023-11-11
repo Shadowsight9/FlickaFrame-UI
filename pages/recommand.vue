@@ -7,16 +7,26 @@ definePageMeta({
   keepalive: true,
 })
 
-const { feedList, isEnd, addMore, pending } = useFeedData(ref(ALL_CATEGORY))
+const { feedList, addMore } = useFeedData(ref(ALL_CATEGORY))
 
 const swiperInstance = ref<TSwiper>()
+const activeInstance = ref<number>()
 
 onKeyStroke(['ArrowUp'], () => {
   swiperInstance.value?.slidePrev()
+  activeInstance.value = swiperInstance.value?.activeIndex
 })
 
 onKeyStroke(['ArrowDown'], () => {
   swiperInstance.value?.slideNext()
+  activeInstance.value = swiperInstance.value?.activeIndex
+})
+
+watch(activeInstance, (val) => {
+  if (!val) return
+  if (val + 2 < feedList.value.length) {
+    addMore()
+  }
 })
 
 function onSwiper(swiper: TSwiper) {

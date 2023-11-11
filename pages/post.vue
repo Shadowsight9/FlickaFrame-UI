@@ -56,7 +56,7 @@ function handleRetry() {
 
 <template>
   <div>
-    <div v-if="!formEnd" class="flex-center">
+    <div v-if="!formEnd">
 
       <form class="max-w-250 w-full space-y-8" @submit.prevent>
 

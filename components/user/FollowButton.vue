@@ -26,6 +26,7 @@ const emitChanged = debounce(() => {
 }, 1000)
 
 async function changeFollowStatus() {
+  if (loading.value) return
   loading.value = true
   const res = isFollow.value ? (await unfollowUser(props.userId)) : (await followUser(props.userId))
 

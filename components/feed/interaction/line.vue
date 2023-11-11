@@ -39,6 +39,7 @@ const isFavorite = computed({
 const loading = ref(false)
 
 async function changeLikeStatus() {
+  if (loading.value) return
   loading.value = true
 
   const res = isFavorite.value ? (await action.unfav()) : (await action.fav())
