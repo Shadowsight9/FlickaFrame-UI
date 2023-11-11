@@ -26,7 +26,7 @@ async function handleReply(r: CommentTarget) {
 
 async function handleShare() {
   try {
-    await navigator.clipboard.writeText(window.location.href)
+    await navigator.clipboard.writeText(`${window.location.href}?from=share`)
     message.success('分享成功， 分享链接已写入剪切板')
   } catch (e) {
     message.error(`分享失败～${e}`)

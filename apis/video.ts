@@ -54,8 +54,10 @@ export function createVideoHistory(videoId: string) {
   })
 }
 
-export function getVideoHistory() {
-  return $fetch<ApiResult<VideoFeedResponse>>('/api/video/play-history/')
+export function getVideoHistory(query?: VideoFeedQuery) {
+  return $fetch<ApiResult<VideoFeedResponse>>('/api/video/play-history', {
+    query,
+  })
 }
 
 export function deleteVideoHistory(videoId: string) {

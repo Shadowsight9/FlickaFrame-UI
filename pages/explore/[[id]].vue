@@ -10,7 +10,7 @@ if (route.params.id) {
   const { success, data } = await getVideoInfo(route.params.id as string)
   if (success) {
     cardInfo.value = data.video
-    if (route.query.from) {
+    if (route.query.from === 'share') {
       shareVideo(cardInfo.value.id)
     }
   }

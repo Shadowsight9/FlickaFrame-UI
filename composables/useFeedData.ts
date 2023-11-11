@@ -11,10 +11,12 @@ export function useFeedData(categoryId: Ref<string>, query: VideoFeedQuery = {},
   const isEndRecord = ref<Record<string, boolean>>({})
   const isEnd = computed(() => Boolean(isEndRecord.value[categoryId.value]))
 
+  let isFresh = false
+
   const { refresh: addMore, pending } = useAsyncData(fetchFn.name, async () => {
     const currentId = categoryId.value
     const { success, data, msg } = await fetchFn({
-      cursor: cursor.value,
+      cursor: isFresh ? undefined : cursor.value,
       limit: 20,
       categoryId: currentId,
       ...query,
@@ -28,11 +30,17 @@ export function useFeedData(categoryId: Ref<string>, query: VideoFeedQuery = {},
     cursorRecord.value[currentId] = data.next
     isEndRecord.value[currentId] = data.isEnd || data.list.length === 0
 
-    if (!feedListRecord.value[currentId]) {
+    if (!feedListRecord.value[currentId] || isFresh) {
       feedListRecord.value[currentId] = []
     }
     feedListRecord.value[currentId].push(...data.list)
   }, { watch: [categoryId] })
 
-  return { feedList, isEnd, addMore, pending }
+  const refresh = async () => {
+    isFresh = true
+    await addMore()
+    isFresh = false
+  }
+
+  return { feedList, isEnd, addMore, pending, refresh }
 }

@@ -23,7 +23,7 @@ export const usePlayHistoryStore = defineStore('playHistory', () => {
     const history = get(id)
     if (!history?.lastPlayedAt) return
 
-    const consumed = dayjs().unix() - history.lastWatchedAt + history.consumed
+    const consumed = dayjs().unix() - history.lastPlayedAt + history.consumed
 
     playHistory.value[id] = {
       ...history,
