@@ -1,8 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/api",
-      "destination": "https://52975m1v51.zicp.fun/api/v1"
+      "source": "/api/v1",
+      "destination": "http://1.116.97.82/api/v1"
     }
   ]
 }
