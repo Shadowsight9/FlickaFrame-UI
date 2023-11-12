@@ -18,9 +18,16 @@ function responseHandler(response: FetchResponse<ApiResult<unknown>>) {
 
 export default defineNuxtPlugin(() => {
   globalThis.$fetch = ofetch.create({
-    onRequest({ options }) {
+    onRequest({ options, ...ctx }) {
       const { public: { baseURL } } = useRuntimeConfig()
-      options.baseURL = process.browser ? '/' : baseURL
+      const rawUrl = ctx.request.toString()
+
+      // TODO: 临时解决方案，后续需要优化
+      if (rawUrl.startsWith('/v1')) {
+        options.baseURL = baseURL
+      } else {
+        options.baseURL = process.browser ? '/' : baseURL
+      }
 
       const sessionStore = useSessionStore()
 

@@ -1,10 +1,14 @@
 <script setup lang='ts'>
 import { useCardHeight } from '~/composables/useFeedLayout'
 import type { VideoItem } from '~/models'
+import rank1Svg from '~/assets/rank1.svg'
+import rank2Svg from '~/assets/rank2.svg'
+import rank3Svg from '~/assets/rank3.svg'
 
 const props = defineProps<{
   info: VideoItem
   active?: boolean
+  rank?: number
 }>()
 
 const emit = defineEmits<{
@@ -14,8 +18,33 @@ const emit = defineEmits<{
 // TODO 卡片高度
 const maxHeight = 500
 const minHeight = 340
-const height = `${Math.floor(Math.random() * (maxHeight - minHeight) + minHeight)}px`
+
+const height = computed(() => {
+  if (props.rank) {
+    return `${minHeight}px`
+  }
+  return `${Math.floor(Math.random() * (maxHeight - minHeight) + minHeight)}px`
+})
 const { rootElement } = useCardHeight()
+
+function getRankAssert(rank: number) {
+  switch (rank) {
+    case 1:
+      return { img: rank1Svg, text: '冠军' }
+    case 2:
+      return { img: rank2Svg, text: '亚军' }
+    case 3:
+      return { img: rank3Svg, text: '季军' }
+    default:
+      return { text: `第${rank}名` }
+  }
+}
+
+const rankAssert = computed(() => {
+  if (props.rank) {
+    return getRankAssert(props.rank)
+  }
+})
 
 function useVideoCard() {
   const cardElement = ref<HTMLElement | null>(null)
@@ -63,14 +92,16 @@ const { cardElement, videoElement, isCardHovered } = useVideoCard()
         class="card-height card-overlay relative"
         :class="{ 'opacity-0': isCardHovered }"
       >
-        <img
-          class="h-full w-full object-cover"
-          :src="props.info.thumbUrl"
-        >
-        <div
-          class="absolute bottom-2 right-2 rounded-md bg-black/30 p-1 text-sm text-white/80"
-        >
+        <img class="h-full w-full object-cover" :src="props.info.thumbUrl">
+        <div class="absolute bottom-2 right-2 rounded-md bg-black/30 p-1 text-sm text-white/80">
           {{ formatDuration(props.info.videoDuration) }}
+        </div>
+
+        <div
+          v-if="rankAssert"
+          class="absolute left-0 top-0 flex-inline items-center rounded-br-lg bg-#7d8498 p-2 px-5 text-white/80 opacity-80"
+        >
+          <img v-if="rankAssert.img" :src="rankAssert.img" class="z-10 mr-2"> {{ rankAssert.text }}
         </div>
       </div>
       <video

@@ -1,21 +1,21 @@
 import type { CommentLevel, CommentListResponse, CommentRequest, CommnetResponse, SubCommentRequest, SubCommentResponse } from '~/models'
 
 export function createCommnet(payload: CommentRequest) {
-  return $fetch<ApiResult<CommnetResponse>>('/api/comment/video', {
+  return $fetch<ApiResult<CommnetResponse>>('/v1/comment/video', {
     method: 'POST',
     body: payload,
   })
 }
 
 export function createSubComment(payload: SubCommentRequest) {
-  return $fetch<ApiResult<SubCommentResponse>>('/api/comment/parent', {
+  return $fetch<ApiResult<SubCommentResponse>>('/v1/comment/parent', {
     method: 'POST',
     body: payload,
   })
 }
 
 export function deleteComment(commnetId: string, level: CommentLevel, videoId: string) {
-  return $fetch<ApiResult<null>>(`/api/comment/${commnetId}`, {
+  return $fetch<ApiResult<null>>(`/v1/comment/${commnetId}`, {
     method: 'DELETE',
     query: {
       type: level,
@@ -25,7 +25,7 @@ export function deleteComment(commnetId: string, level: CommentLevel, videoId: s
 }
 
 export function getCommnets(videoId: string) {
-  return $fetch<ApiResult<CommentListResponse>>(`/api/video/${videoId}/comments`, {
+  return $fetch<ApiResult<CommentListResponse>>(`/v1/video/${videoId}/comments`, {
     method: 'GET',
   })
 }

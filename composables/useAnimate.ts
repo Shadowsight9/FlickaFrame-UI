@@ -1,1 +1,1 @@
-export * from '@formkit/auto-animate'
+export { vAutoAnimate } from '@formkit/auto-animate'

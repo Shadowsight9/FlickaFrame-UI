@@ -16,7 +16,7 @@ function generateMD5(file: File): Promise<string> {
 }
 
 export async function createFileToken(query: UpTokenQuery) {
-  return $fetch<ApiResult<UpTokenResponse>>('/api/oss/uptoken', {
+  return $fetch<ApiResult<UpTokenResponse>>('/v1/oss/uptoken', {
     query,
   })
 }
@@ -34,7 +34,7 @@ export async function uploadFile(file: File, token: string, fileType: UpTokenTyp
 }
 
 export async function getFileUrl(key: string) {
-  const { success, data } = await $fetch<ApiResult<OssHostResponse>>('/api/oss/endpoint')
+  const { success, data } = await $fetch<ApiResult<OssHostResponse>>('/v1/oss/endpoint')
   const host = success ? data.endpoint : 'http://s2i8a2ssf.hn-bkt.clouddn.com'
 
   return joinURL(host, key)
