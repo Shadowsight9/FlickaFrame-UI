@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { getFavoriteVideo } from '~/apis'
-import { vAutoAnimate } from '@formkit/auto-animate'
+import { vAutoAnimate } from '~/composables/useAnimate'
 import { ALL_CATEGORY } from '~/models'
 
 const { feedList, isEnd, addMore, pending, refresh } = useFeedData(ref(ALL_CATEGORY), {}, getFavoriteVideo)
